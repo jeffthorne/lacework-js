@@ -1,0 +1,22 @@
+{
+    "name": "@jeffthorne/lacework",
+    "version": "0.0.1",
+    "description": "",
+    "main": "src/Lacework.mjs",
+    "scripts": {
+        "build": "npx babel src --out-dir dist",
+        "start": "npx babel src --watch --out-dir dist"
+    },
+    "keywords": [],
+    "author": "Jeff Thorne",
+    "license": "MIT",
+    "dependencies": {
+        "axios": "^0.19.2"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.6",
+        "@babel/preset-env": "^7.9.6"
+    },
+    "type": "module"
+}
