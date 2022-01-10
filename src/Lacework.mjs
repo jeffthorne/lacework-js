@@ -3,29 +3,30 @@ import https from 'https'
 
 class Lacework{
 
-    constructor({account, subaccount, apiKey, apiSecret, verifyTLS = false, apiVersion = 'v1'}){
+    constructor({account, subaccount, apiKey, apiSecret, expiry = 3600, verifyTLS = false, apiVersion = 'v1'}){
         this.account = account
         this.subaccount = subaccount
         this.apiKey = apiKey
         this.apiSecret = apiSecret
-        this.baseURL = `https://${account}.lacework.net/api/${apiVersion}`
+        this.baseURL = `https://${account}.lacework.net/api`
         this.accessToken = null
+        this.expiry = expiry
     }
 
     async init(){
-        let params = {keyId: this.apiKey, expiryTime: 3600}
-        let resp = await this._api({path:'/access/tokens', method: 'post', data: params})
+        let params = {keyId: this.apiKey, expiryTime: this.expiry}
+        let resp = await this._api({path:`/access/tokens`, method: 'post', data: params, apiVersion: 'v1'})
         this.accessToken = resp.data[0].token
       };
 
 
-      async _api({path = '', method = 'get', data = null}){
+      async _api({path = '', method = 'get', data = null, apiVersion='v1'}){
 
         let result = {}
       
         let request = {
           method,
-          url: `${this.baseURL}${path}`,
+          url: `${this.baseURL}/${apiVersion}${path}`,
           headers: {
             'Content-Type': 'application/json'
           },
@@ -65,3 +66,4 @@ class Lacework{
 }
 
 export default Lacework;
+

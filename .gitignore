@@ -5,3 +5,4 @@ yarn.lock
 .cache/
 package-lock.json
 test/test.js
+fg.json
